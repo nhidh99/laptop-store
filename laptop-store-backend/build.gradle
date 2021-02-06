@@ -48,10 +48,7 @@ jar {
 }
 
 subprojects {
-
-    apply plugin: 'java'
     apply plugin: 'org.jetbrains.kotlin.jvm'
-    apply plugin: 'org.jetbrains.kotlin.plugin.allopen'
     apply plugin: 'org.jetbrains.kotlin.plugin.spring'
     apply plugin: 'io.spring.dependency-management'
 
@@ -67,13 +64,11 @@ subprojects {
         implementation "org.springframework.boot:spring-boot-starter-security"
     }
 
-    // spring boot plugin may only be applied to the root project
     dependencyManagement {
         imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
     }
 }
 
-// shared module can't depend on self, but all the other projects need it
 configure(subprojects.findAll { it.name != 'constant' }) {
     dependencies {
         implementation project(':constant')
