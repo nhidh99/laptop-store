@@ -1,6 +1,9 @@
 include(
-    "controller",
-    "constant",
-    "model",
-    "security",
-    "repository")
+        "controller",
+        "constant",
+        "model",
+        "security",
+        "repository",
+        "service",
+        "exception",
+        "validator")

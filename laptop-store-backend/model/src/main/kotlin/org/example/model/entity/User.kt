@@ -1,7 +1,7 @@
-package org.example.model
+package org.example.model.entity
 
-import org.example.type.Gender
-import org.example.type.UserRole
+import org.example.model.type.Gender
+import org.example.model.type.UserRole
 import javax.persistence.*
 
 @Entity

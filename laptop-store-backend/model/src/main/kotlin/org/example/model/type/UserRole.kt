@@ -1,4 +1,4 @@
-package org.example.type
+package org.example.model.type
 
 import org.springframework.security.core.GrantedAuthority
 

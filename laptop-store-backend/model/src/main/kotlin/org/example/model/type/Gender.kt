@@ -1,4 +1,4 @@
-package org.example.type
+package org.example.model.type
 
 enum class Gender {
     MALE,
