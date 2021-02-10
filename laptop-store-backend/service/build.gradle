@@ -1,0 +1,6 @@
+dependencies {
+    api project(":repository")
+    api project(":validator")
+    api project(":exception")
+    implementation project(":security")
+}
