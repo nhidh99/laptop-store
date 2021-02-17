@@ -1,3 +1,3 @@
 package org.example.exception
 
-class InvalidCredentialException : Exception() {}
+class InvalidCredentialException : Exception()

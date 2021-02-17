@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class AuthValidatorImpl @Autowired constructor(private val userRepository: UserRepository) : AuthValidator {
-    override fun isValidLoginInput(loginInput: LoginInput): Boolean {
+    override fun validateLoginInput(loginInput: LoginInput): Boolean {
         val (username, password) = loginInput
         val user = userRepository.findByUsername(username)
         return user != null && BCrypt.checkpw(password, user.password)
