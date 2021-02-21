@@ -1,5 +1,7 @@
-package org.example.security
+package org.example.config
 
+import org.example.security.JwtFilterConfig
+import org.example.security.JwtProvider
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -15,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-class WebSecurityConfig @Autowired constructor(
+class SecurityConfig @Autowired constructor(
     private val jwtProvider: JwtProvider
 ) : WebSecurityConfigurerAdapter() {
     @Throws(Exception::class)

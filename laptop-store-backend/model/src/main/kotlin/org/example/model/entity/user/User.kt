@@ -13,7 +13,7 @@ data class User(
     @Column(name = "id", nullable = false, unique = true)
     var id: Long? = null,
 
-    @Column(name = "username", length = 30, unique = true)
+    @Column(name = "username", length = 20, unique = true)
     var username: String? = null,
 
     @Column(name = "password", length = 100)
