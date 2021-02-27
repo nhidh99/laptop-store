@@ -10,7 +10,7 @@ import java.util.*
 import javax.servlet.http.HttpServletRequest
 
 @Configuration
-class LocalResolverConfig : AcceptHeaderLocaleResolver(), WebMvcConfigurer {
+class WebLocaleConfig : AcceptHeaderLocaleResolver(), WebMvcConfigurer {
     private var locales = listOf(
         Locale("en"),
         Locale("vn")
@@ -19,9 +19,7 @@ class LocalResolverConfig : AcceptHeaderLocaleResolver(), WebMvcConfigurer {
     override fun resolveLocale(request: HttpServletRequest): Locale {
         val headerLang = request.getHeader(HeaderConstants.ACCEPT_LANGUAGE)
         return if (headerLang == null || headerLang.isEmpty()) Locale.getDefault() else Locale.lookup(
-            Locale.LanguageRange.parse(
-                headerLang
-            ), locales
+            Locale.LanguageRange.parse(headerLang), locales
         )
     }
 

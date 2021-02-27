@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class AuthServiceImpl @Autowired constructor(
+class LoginServiceImpl @Autowired constructor(
     private val authValidator: AuthValidator,
     private val jwtProvider: JwtProvider
-) : AuthService {
-    override fun login(loginInput: LoginInput): LoginResponse {
+) : LoginService {
+    override fun execute(loginInput: LoginInput): LoginResponse {
         if (isInvalidLoginInput(loginInput)) {
             throw InvalidCredentialException()
         }

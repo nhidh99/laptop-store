@@ -6,8 +6,9 @@ services:
     image: postgres:latest
     restart: always
     environment:
+      - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=laptop_store
     ports:
       - "5432:5432"
     volumes:

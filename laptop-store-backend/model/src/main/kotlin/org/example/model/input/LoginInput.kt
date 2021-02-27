@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 data class LoginInput(
     @JsonProperty("username")
-    var username: String?,
+    val username: String?,
 
     @JsonProperty("password")
-    var password: String?
+    val password: String?
 )
