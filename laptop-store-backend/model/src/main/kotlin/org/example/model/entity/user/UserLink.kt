@@ -5,19 +5,19 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "user_link")
-data class UserLink(
-    @Id
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    var user: User,
-
-    @Column(name = "facebook_id", length = 30)
-    var facebookId: String? = null,
-
-    @Column(name = "google_id", length = 30)
-    var googleId: String? = null,
-) : Serializable {
+class UserLink : Serializable {
     companion object {
         private const val serialVersionUID: Long = 1L
     }
+
+    @Id
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    val user: User? = null
+
+    @Column(name = "facebook_id", length = 30)
+    val facebookId: String? = null
+
+    @Column(name = "google_id", length = 30)
+    val googleId: String? = null
 }

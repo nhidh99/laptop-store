@@ -2,10 +2,10 @@ package org.example.model.input
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class LoginInput(
-    @JsonProperty("username")
-    val username: String?,
+class LoginInput {
+    @field:JsonProperty("username")
+    var username: String? = null
 
-    @JsonProperty("password")
-    val password: String?
-)
+    @field:JsonProperty("password")
+    var password: String? = null
+}

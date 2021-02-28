@@ -5,6 +5,7 @@ import io.jsonwebtoken.UnsupportedJwtException
 import io.jsonwebtoken.MalformedJwtException
 import io.jsonwebtoken.Jwts
 import org.example.constant.ErrorMessageConstants
+import org.example.constant.TokenConstants
 import org.example.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -28,12 +29,6 @@ class JwtProvider @Autowired constructor(
     @Value("\${org.example.security.jwt.token.secret-key:LAPTOP_STORE}")
     private var secretKey: String? = null
 
-    @Value("\${org.example.security.jwt.token.access-token-expire-length:900000}")
-    private val accessTokenExpiration: Long = 0
-
-    @Value("\${org.example.security.jwt.token.refresh-token-expire-length:2592000000}")
-    private val refreshTokenExpiration: Long = 0
-
     @PostConstruct
     protected fun init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey!!.toByteArray())
@@ -42,7 +37,7 @@ class JwtProvider @Autowired constructor(
     private fun getAccessToken(username: String): String {
         val claims = getAccessTokenClaims(username);
         val now = Date()
-        val validity = Date(now.time + accessTokenExpiration)
+        val validity = Date(now.time + TokenConstants.ACCESS_TOKEN_EXPIRATION_IN_MILLISECOND)
         return Jwts.builder()
             .setClaims(claims)
             .setIssuedAt(now)
@@ -61,7 +56,7 @@ class JwtProvider @Autowired constructor(
     private fun getRefreshToken(username: String?): String {
         val claims: Claims = Jwts.claims().setSubject(username)
         val now = Date()
-        val validity = Date(now.time + refreshTokenExpiration)
+        val validity = Date(now.time + TokenConstants.REFRESH_TOKEN_EXPIRATION_IN_MILLISECOND)
         return Jwts.builder()
             .setClaims(claims)
             .setIssuedAt(now)

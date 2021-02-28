@@ -2,7 +2,7 @@ package org.example.constant
 
 object RegexConstants {
     /**
-     * Regex for register username:
+     * Regex for registered username:
      *
      * - 8 to 20 character long.
      *
@@ -17,7 +17,7 @@ object RegexConstants {
     const val REGISTRATION_USERNAME = "^(?=.{8,20}\$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])\$"
 
     /**
-     * Regex for register password:
+     * Regex for registered password:
      *
      * - 8 to 30 character long.
      *
@@ -32,17 +32,22 @@ object RegexConstants {
     const val REGISTRATION_PASSWORD = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@\$!%*?&])[A-Za-z\\d@\$!%*?&]{8,30}\$"
 
     /**
-     * Regex for register phone: only accept 10 digit number
+     * Regex for registered phone: only accept 10 digit number
      */
     const val REGISTRATION_PHONE = "^\\d{10}\$"
 
     /**
-     * Regex for register email: only accept one '@' character
+     * Regex for registered email: only accept one '@' character
      */
     const val REGISTRATION_EMAIL = "^\\S+@\\S+\$"
 
     /**
-     * Regex for register name: 2 to 30 character long
+     * Regex for registered name: 2 to 30 character long
      */
     const val REGISTRATION_NAME = "^.{2,30}\$"
+
+    /**
+     * Regex for registered gender: MALE or FEMALE
+     */
+    const val REGISTRATION_GENDER = "MALE|FEMALE";
 }

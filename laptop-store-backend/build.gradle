@@ -31,9 +31,7 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-reflect'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation "org.springdoc:springdoc-openapi-ui:${openApiVersion}"
-    implementation "org.springdoc:springdoc-openapi-webmvc-core:${openApiVersion}"
     implementation "org.springdoc:springdoc-openapi-kotlin:${openApiVersion}"
-    implementation "org.springdoc:springdoc-openapi-data-rest:${openApiVersion}"
 }
 
 compileKotlin {

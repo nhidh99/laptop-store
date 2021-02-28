@@ -1,5 +1,6 @@
 package org.example.controller
 
+import io.swagger.v3.oas.annotations.media.Schema
 import org.example.constant.HeaderConstants
 import org.example.model.input.CreateUserInput
 import org.example.model.input.LoginInput
@@ -36,6 +37,7 @@ class AuthController @Autowired constructor(
     }
 
     @PostMapping(value = ["/register"], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @Schema(description = "Registration")
     fun postRegistration(@Valid @RequestBody createUserInput: CreateUserInput): ResponseEntity<Void> {
         createUserService.execute(createUserInput)
         return ResponseEntity.status(HttpStatus.CREATED).build()
