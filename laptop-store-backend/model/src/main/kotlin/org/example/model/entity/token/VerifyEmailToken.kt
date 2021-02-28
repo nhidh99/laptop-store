@@ -10,7 +10,8 @@ import javax.persistence.PrePersist
 @DiscriminatorValue(TokenConstants.VERIFY_EMAIL)
 class VerifyEmailToken : ConfirmationToken() {
     @PrePersist
-    override fun initPathnameAndTokenType() {
+    override fun prePersist() {
+        super.prePersist()
         this.pathname = PathnameConstants.VERIFY_EMAIL
     }
 }

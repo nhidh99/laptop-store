@@ -10,7 +10,8 @@ import javax.persistence.PrePersist
 @DiscriminatorValue(TokenConstants.RESET_PASSWORD)
 class ResetPasswordToken : ConfirmationToken() {
     @PrePersist
-    override fun initPathnameAndTokenType() {
+    override fun prePersist() {
+        super.prePersist()
         this.pathname = PathnameConstants.RESET_PASSWORD
     }
 }

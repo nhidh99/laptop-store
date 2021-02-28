@@ -46,11 +46,9 @@ abstract class ConfirmationToken {
         }
 
     @PrePersist
-    fun initCreatedAndExpiredTime() {
+    open fun prePersist() {
         this.token = UUID.randomUUID().toString()
         this.createdAt = LocalDateTime.now(ZoneOffset.UTC)
         this.expiredAt = this.createdAt!!.plusMinutes(TokenConstants.VERIFY_TOKEN_EXPIRATION_IN_MINUTE)
     }
-
-    abstract fun initPathnameAndTokenType()
 }
