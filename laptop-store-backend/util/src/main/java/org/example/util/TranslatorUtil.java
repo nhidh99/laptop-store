@@ -12,7 +12,7 @@ public class TranslatorUtil {
     private static ResourceBundleMessageSource messageSource;
 
     @Autowired
-    TranslatorUtil(ResourceBundleMessageSource messageSource) {
+    public TranslatorUtil(ResourceBundleMessageSource messageSource) {
         TranslatorUtil.messageSource = messageSource;
     }
 
