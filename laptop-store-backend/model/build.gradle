@@ -1,4 +1,3 @@
 dependencies {
     implementation "org.springdoc:springdoc-openapi-kotlin:${openApiVersion}"
-    implementation "org.apache.commons:commons-lang3:3.11"
 }
