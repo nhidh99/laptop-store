@@ -1,6 +1,7 @@
 package org.example.config;
 
 import org.example.constant.HeaderConstants;
+import org.example.constant.LocaleConstants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -14,13 +15,12 @@ import java.util.Locale;
 
 @Configuration
 public class LocaleConfig extends AcceptHeaderLocaleResolver implements WebMvcConfigurer {
-    final List<Locale> LOCALES = Arrays.asList(
-            new Locale("en"),
-            new Locale("vn"));
+    private final List<Locale> LOCALES = Arrays.asList(
+            new Locale(LocaleConstants.ENGLISH),
+            new Locale(LocaleConstants.VIETNAM));
 
     @Override
     public Locale resolveLocale(HttpServletRequest request) {
-        System.out.printf("helu");
         String headerLang = request.getHeader(HeaderConstants.ACCEPT_LANGUAGE);
         return headerLang == null || headerLang.isEmpty()
                 ? Locale.getDefault()
@@ -29,10 +29,10 @@ public class LocaleConfig extends AcceptHeaderLocaleResolver implements WebMvcCo
 
     @Bean
     public ResourceBundleMessageSource messageSource() {
-        ResourceBundleMessageSource rs = new ResourceBundleMessageSource();
-        rs.setBasename("messages");
-        rs.setDefaultEncoding("UTF-8");
-        rs.setUseCodeAsDefaultMessage(true);
-        return rs;
+        return new ResourceBundleMessageSource() {{
+            setBasename("messages");
+            setDefaultEncoding("UTF-8");
+            setUseCodeAsDefaultMessage(true);
+        }};
     }
 }

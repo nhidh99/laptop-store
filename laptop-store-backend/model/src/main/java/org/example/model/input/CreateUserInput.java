@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 import org.example.annotation.EnumPattern;
 import org.example.constant.RegexConstants;
 import org.example.model.type.Gender;
@@ -53,4 +54,8 @@ public class CreateUserInput {
     @EnumPattern(regexp = RegexConstants.REGISTRATION_GENDER)
     @Schema(description = "User gender of registration", example = "MALE")
     private Gender gender;
+
+    public void setName(String name) {
+        this.name = StringUtils.normalizeSpace(name);
+    }
 }
