@@ -1,4 +1,4 @@
 dependencies {
     implementation project(":service")
-    implementation "org.springdoc:springdoc-openapi-kotlin:${openApiVersion}"
+    implementation "org.springdoc:springdoc-openapi-webmvc-core:${openApiVersion}"
 }

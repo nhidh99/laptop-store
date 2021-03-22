@@ -1,7 +1,7 @@
 package org.example.service.user;
 
-import org.example.model.input.CreateUserInput;
+import org.example.model.request.CreateUserRequest;
+import org.example.service.Service;
 
-public interface CreateUserService {
-    void execute(CreateUserInput createUserInput);
+public interface CreateUserService extends Service<CreateUserRequest, Void> {
 }

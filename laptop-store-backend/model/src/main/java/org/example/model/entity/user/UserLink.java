@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Data
 public class UserLink implements Serializable {
     @Id
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 

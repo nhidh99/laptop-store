@@ -1,6 +1,8 @@
 package org.example.model.entity.user;
 
+import lombok.Builder;
 import lombok.Data;
+import org.example.model.request.CreateUserRequest;
 import org.example.model.type.Gender;
 
 import javax.persistence.*;
@@ -9,9 +11,10 @@ import java.io.Serializable;
 @Entity
 @Table(name = "user_detail")
 @Data
+@Builder
 public class UserDetail implements Serializable {
     @Id
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -31,12 +34,14 @@ public class UserDetail implements Serializable {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Column(name = "cart", length = 1000, columnDefinition = "json")
-    private String cart;
-
-    @Column(name = "wish_list", length = 1000, columnDefinition = "json")
-    private String wishList;
-
     @Column(name = "address_id")
     private Long addressId;
+
+    public static UserDetail fromCreateUserRequest(CreateUserRequest request) {
+        return UserDetail.builder()
+            .name(request.name())
+            .phone(request.phone())
+            .pendingEmail(request.email())
+            .gender(request.gender()).build();
+    }
 }

@@ -1,7 +1,7 @@
 package org.example.validator.auth;
 
-import org.example.model.input.LoginInput;
+import org.example.model.request.LoginRequest;
 
 public interface AuthValidator {
-    boolean validateLoginInput(LoginInput loginInput);
+    boolean validateLoginInput(LoginRequest loginRequest);
 }

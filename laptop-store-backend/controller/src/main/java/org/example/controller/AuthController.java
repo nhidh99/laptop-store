@@ -3,9 +3,8 @@ package org.example.controller;
 import freemarker.template.TemplateException;
 import org.example.constant.HeaderConstants;
 import org.example.exception.InvalidCredentialException;
-import org.example.model.input.CreateUserInput;
-import org.example.model.input.LoginInput;
-import org.example.model.mail.MailProps;
+import org.example.model.request.CreateUserRequest;
+import org.example.model.request.LoginRequest;
 import org.example.model.response.LoginResponse;
 import org.example.service.auth.LoginService;
 import org.example.service.mail.SendEmailService;
@@ -30,19 +29,17 @@ import java.io.IOException;
 public class AuthController {
     private final LoginService loginService;
     private final CreateUserService createUserService;
-    private final SendEmailService sendEmailService;
 
     @Autowired
     public AuthController(LoginService loginService, CreateUserService createUserService, SendEmailService sendEmailService) {
         this.loginService = loginService;
         this.createUserService = createUserService;
-        this.sendEmailService = sendEmailService;
     }
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("permitAll()")
-    public ResponseEntity<?> login(@RequestBody LoginInput loginInput) throws InvalidCredentialException, MessagingException, IOException, TemplateException {
-        LoginResponse tokens = loginService.execute(loginInput);
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws InvalidCredentialException, MessagingException, IOException, TemplateException {
+        LoginResponse tokens = loginService.execute(loginRequest);
         HttpHeaders headers = new HttpHeaders() {{
             add(HeaderConstants.ACCESS_TOKEN, tokens.getAccessToken());
             add(HeaderConstants.REFRESH_TOKEN, tokens.getRefreshToken());
@@ -52,7 +49,7 @@ public class AuthController {
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("permitAll()")
-    public ResponseEntity<?> register(@RequestBody CreateUserInput input) {
+    public ResponseEntity<?> register(@RequestBody CreateUserRequest input) {
         createUserService.execute(input);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
