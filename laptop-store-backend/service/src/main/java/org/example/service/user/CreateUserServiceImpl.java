@@ -10,7 +10,6 @@ import org.example.validator.user.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 @Service
 @Slf4j
 public class CreateUserServiceImpl implements CreateUserService {
@@ -39,12 +38,11 @@ public class CreateUserServiceImpl implements CreateUserService {
     }
 
     @Override
-    public Void process(CreateUserRequest request) {
+    public void process(CreateUserRequest request) {
         UserDetail userDetail = UserDetail.fromCreateUserRequest(request);
         User user = User.fromCreateUserRequest(request);
         userDetail.setUser(user);
         user.setDetail(userDetail);
         userRepository.save(user);
-        return null;
     }
 }
