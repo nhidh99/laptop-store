@@ -33,10 +33,6 @@ jar {
     enabled = false
 }
 
-compileJava {
-    options.compilerArgs += ['--enable-preview']
-}
-
 subprojects {
     apply plugin: 'java-library'
     apply plugin: 'org.springframework.boot'
@@ -44,10 +40,6 @@ subprojects {
 
     repositories {
         mavenCentral()
-    }
-
-    compileJava {
-        options.compilerArgs += ['--enable-preview']
     }
 
     ext['jackson.version'] = "${jacksonVersion}"
