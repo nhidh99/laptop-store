@@ -1,6 +1,6 @@
-package org.example.service;
+package org.example.service.template;
 
-public interface Service<Request, Response> {
+public interface ResponseService<Request, Response> {
     void validate(Request request);
 
     Response process(Request request);
