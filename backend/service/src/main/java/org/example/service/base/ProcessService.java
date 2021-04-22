@@ -1,4 +1,4 @@
-package org.example.service.template;
+package org.example.service.base;
 
 public interface ProcessService<Request> {
     void validate(Request request);

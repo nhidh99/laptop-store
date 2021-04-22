@@ -1,7 +1,9 @@
 package org.example.model.entity.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.example.model.request.CreateUserRequest;
 import org.example.model.type.Gender;
 
@@ -12,6 +14,8 @@ import java.io.Serializable;
 @Table(name = "user_detail")
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDetail implements Serializable {
     @Id
     @OneToOne(cascade = CascadeType.ALL)

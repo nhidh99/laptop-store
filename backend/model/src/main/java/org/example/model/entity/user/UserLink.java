@@ -1,6 +1,8 @@
 package org.example.model.entity.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,6 +10,8 @@ import java.io.Serializable;
 @Entity
 @Table(name = "user_link")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserLink implements Serializable {
     @Id
     @OneToOne(cascade = CascadeType.ALL)

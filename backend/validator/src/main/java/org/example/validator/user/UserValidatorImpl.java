@@ -19,13 +19,13 @@ public class UserValidatorImpl implements UserValidator {
     @Override
     public boolean registeredEmailExists(String email) {
         log.info("Received existing registered email: " + email);
-        return userRepository.existsByRecordStatusTrueAndDetailVerifiedEmail(email);
+        return userRepository.existsByDetailVerifiedEmail(email);
     }
 
     @Override
     public boolean registeredUsernameExists(String username) {
         log.info("Received existing registered username: " + username);
-        return userRepository.existsByRecordStatusTrueAndUsername(username);
+        return userRepository.existsByUsername(username);
     }
 
     @Override

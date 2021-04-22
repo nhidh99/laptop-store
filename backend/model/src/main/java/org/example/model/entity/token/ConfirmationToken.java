@@ -1,5 +1,7 @@
 package org.example.model.entity.token;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.example.constant.TokenConstants;
 import org.example.model.entity.user.User;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +15,7 @@ import java.util.UUID;
 @Table(name = "confirmation_token")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "token_type")
+@NoArgsConstructor
 public abstract class ConfirmationToken {
     @Value("${org.example.server.hostname:error_hostname}")
     private String hostname;

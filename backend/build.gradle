@@ -42,8 +42,6 @@ subprojects {
         mavenCentral()
     }
 
-    ext['jackson.version'] = "${jacksonVersion}"
-
     dependencies {
         annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
         implementation "org.projectlombok:lombok:${lombokVersion}"

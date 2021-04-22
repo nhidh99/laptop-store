@@ -1,13 +1,11 @@
 package org.example.controller;
 
-import freemarker.template.TemplateException;
 import org.example.constant.HeaderConstants;
 import org.example.exception.InvalidCredentialException;
 import org.example.model.request.CreateUserRequest;
 import org.example.model.request.LoginRequest;
 import org.example.model.response.LoginResponse;
 import org.example.service.auth.LoginService;
-import org.example.service.mail.SendEmailService;
 import org.example.service.user.CreateUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -20,9 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.mail.MessagingException;
-import java.io.IOException;
-
 @RestController
 @RequestMapping("/api/auth")
 @PreAuthorize("permitAll()")
@@ -31,14 +26,14 @@ public class AuthController {
     private final CreateUserService createUserService;
 
     @Autowired
-    public AuthController(LoginService loginService, CreateUserService createUserService, SendEmailService sendEmailService) {
+    public AuthController(LoginService loginService, CreateUserService createUserService) {
         this.loginService = loginService;
         this.createUserService = createUserService;
     }
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("permitAll()")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws InvalidCredentialException, MessagingException, IOException, TemplateException {
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws InvalidCredentialException {
         LoginResponse tokens = loginService.execute(loginRequest);
         HttpHeaders headers = new HttpHeaders() {{
             add(HeaderConstants.ACCESS_TOKEN, tokens.getAccessToken());
