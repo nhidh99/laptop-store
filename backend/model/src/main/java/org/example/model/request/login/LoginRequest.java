@@ -1,4 +1,4 @@
-package org.example.model.request;
+package org.example.model.request.login;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;

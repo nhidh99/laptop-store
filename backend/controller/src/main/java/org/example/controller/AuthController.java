@@ -2,11 +2,11 @@ package org.example.controller;
 
 import org.example.constant.HeaderConstants;
 import org.example.exception.InvalidCredentialException;
-import org.example.model.request.CreateUserRequest;
-import org.example.model.request.LoginRequest;
-import org.example.model.response.LoginResponse;
-import org.example.service.auth.LoginService;
-import org.example.service.user.CreateUserService;
+import org.example.model.request.user.CreateUserRequest;
+import org.example.model.request.login.LoginRequest;
+import org.example.model.projection.login.LoginResponse;
+import org.example.service.auth.facade.AuthService;
+import org.example.service.user.facade.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,19 +22,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 @PreAuthorize("permitAll()")
 public class AuthController {
-    private final LoginService loginService;
-    private final CreateUserService createUserService;
+    private final AuthService authService;
+    private final UserService userService;
 
     @Autowired
-    public AuthController(LoginService loginService, CreateUserService createUserService) {
-        this.loginService = loginService;
-        this.createUserService = createUserService;
+    public AuthController(AuthService authService, UserService userService) {
+        this.authService = authService;
+        this.userService = userService;
     }
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("permitAll()")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws InvalidCredentialException {
-        LoginResponse tokens = loginService.execute(loginRequest);
+        LoginResponse tokens = authService.login(loginRequest);
         HttpHeaders headers = new HttpHeaders() {{
             add(HeaderConstants.ACCESS_TOKEN, tokens.getAccessToken());
             add(HeaderConstants.REFRESH_TOKEN, tokens.getRefreshToken());
@@ -44,8 +44,8 @@ public class AuthController {
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("permitAll()")
-    public ResponseEntity<?> register(@RequestBody CreateUserRequest input) {
-        createUserService.execute(input);
+    public ResponseEntity<?> register(@RequestBody CreateUserRequest request) {
+        userService.createUser(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

@@ -2,6 +2,7 @@
 package org.example.security;
 
 import org.example.model.entity.user.User;
+import org.example.model.projection.user.UserCredential;
 import org.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +21,7 @@ public class AppUserDetails implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        UserCredential user = userRepository.findByUsername(username, UserCredential.class);
         if (user == null) {
             throw new UsernameNotFoundException("User '" + username + "' not found");
         }

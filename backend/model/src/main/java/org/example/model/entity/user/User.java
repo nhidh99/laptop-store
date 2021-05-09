@@ -1,9 +1,13 @@
 package org.example.model.entity.user;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.example.model.entity.base.BaseEntity;
 import org.example.model.entity.token.ConfirmationToken;
-import org.example.model.request.CreateUserRequest;
+import org.example.model.request.user.CreateUserRequest;
+import org.example.model.type.Gender;
 import org.example.model.type.UserRole;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,11 +34,27 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-    private UserDetail detail;
+    @Column(name = "facebook_id", length = 30)
+    private String facebookId;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-    private UserLink link;
+    @Column(name = "google_id", length = 30)
+    private String googleId;
+
+    @Column(name = "pending_email", length = 100)
+    private String pendingEmail;
+
+    @Column(name = "verified_email", length = 100)
+    private String verifiedEmail;
+
+    @Column(name = "name", length = 30)
+    private String name;
+
+    @Column(name = "phone", length = 10)
+    private String phone;
+
+    @Column(name = "gender", length = 10)
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     @OneToMany(mappedBy = "user")
     private Set<ConfirmationToken> tokens;
@@ -43,6 +63,10 @@ public class User extends BaseEntity {
         String hashedPassword = pwEncoder.encode(request.password());
         return User.builder()
                 .username(request.username())
+                .pendingEmail(request.email())
+                .name(request.name())
+                .phone(request.phone())
+                .gender(request.gender())
                 .role(UserRole.CUSTOMER)
                 .password(hashedPassword).build();
     }

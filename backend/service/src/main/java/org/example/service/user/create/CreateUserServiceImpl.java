@@ -1,9 +1,8 @@
-package org.example.service.user;
+package org.example.service.user.create;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.model.entity.user.User;
-import org.example.model.entity.user.UserDetail;
-import org.example.model.request.CreateUserRequest;
+import org.example.model.request.user.CreateUserRequest;
 import org.example.repository.UserRepository;
 import org.example.util.TranslatorUtil;
 import org.example.validator.user.UserValidator;
@@ -39,10 +38,7 @@ public class CreateUserServiceImpl implements CreateUserService {
 
     @Override
     public void process(CreateUserRequest request) {
-        UserDetail userDetail = UserDetail.fromCreateUserRequest(request);
         User user = User.fromCreateUserRequest(request);
-        userDetail.setUser(user);
-        user.setDetail(userDetail);
         userRepository.save(user);
     }
 }

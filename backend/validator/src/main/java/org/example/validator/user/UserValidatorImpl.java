@@ -19,7 +19,7 @@ public class UserValidatorImpl implements UserValidator {
     @Override
     public boolean registeredEmailExists(String email) {
         log.info("Received existing registered email: " + email);
-        return userRepository.existsByDetailVerifiedEmail(email);
+        return userRepository.existsByVerifiedEmail(email);
     }
 
     @Override

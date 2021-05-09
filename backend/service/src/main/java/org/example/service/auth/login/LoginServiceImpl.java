@@ -1,9 +1,9 @@
-package org.example.service.auth;
+package org.example.service.auth.login;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.exception.InvalidCredentialException;
-import org.example.model.request.LoginRequest;
-import org.example.model.response.LoginResponse;
+import org.example.model.request.login.LoginRequest;
+import org.example.model.projection.login.LoginResponse;
 import org.example.security.JwtProvider;
 import org.example.validator.auth.AuthValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +23,20 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public LoginResponse execute(LoginRequest loginRequest) throws InvalidCredentialException {
+    public void validate(LoginRequest loginRequest) throws InvalidCredentialException {
         if (isInvalidCredential(loginRequest)) {
             log.info("Received invalid credential from user " + loginRequest.username());
             throw new InvalidCredentialException();
         }
-        Pair<String, String> tokenPair = jwtProvider.getAccessAndRefreshTokens(loginRequest.username());
-        return LoginResponse.fromTokenPair(tokenPair);
     }
 
     private boolean isInvalidCredential(LoginRequest loginRequest) {
         return !authValidator.validateLoginInput(loginRequest);
+    }
+
+    @Override
+    public LoginResponse process(LoginRequest loginRequest) {
+        Pair<String, String> tokenPair = jwtProvider.getAccessAndRefreshTokens(loginRequest.username());
+        return LoginResponse.fromTokenPair(tokenPair);
     }
 }

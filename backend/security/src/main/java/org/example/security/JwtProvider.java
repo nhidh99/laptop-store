@@ -2,6 +2,7 @@ package org.example.security;
 
 import io.jsonwebtoken.*;
 import org.example.constant.TokenConstants;
+import org.example.model.projection.user.UserRoleValue;
 import org.example.model.type.UserRole;
 import org.example.repository.UserRepository;
 import org.example.util.TranslatorUtil;
@@ -44,7 +45,7 @@ public class JwtProvider {
 
     public String getAccessToken(String username) {
         Claims claims = Jwts.claims().setSubject(username);
-        UserRole role = userRepository.findRoleByUsername(username);
+        UserRole role = userRepository.findByUsername(username, UserRoleValue.class).getValue();
         claims.put("auth", Collections.singletonList(new SimpleGrantedAuthority(role.getAuthority())));
 
         Date now = new Date();

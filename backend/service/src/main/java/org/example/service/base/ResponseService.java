@@ -1,7 +1,7 @@
 package org.example.service.base;
 
 public interface ResponseService<Request, Response> {
-    void validate(Request request);
+    default void validate(Request request) { }
 
     Response process(Request request);
 
