@@ -1,7 +1,9 @@
 package org.example.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.constant.HeaderConstants;
 import org.example.exception.InvalidCredentialException;
+import org.example.model.request.login.FacebookLoginRequest;
 import org.example.model.request.user.CreateUserRequest;
 import org.example.model.request.login.LoginRequest;
 import org.example.model.projection.login.LoginResponse;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/auth")
 @PreAuthorize("permitAll()")
+@Slf4j
 public class AuthController {
     private final AuthService authService;
     private final UserService userService;
@@ -31,15 +34,26 @@ public class AuthController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("permitAll()")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws InvalidCredentialException {
-        LoginResponse tokens = authService.login(loginRequest);
+    private ResponseEntity<?> getLoginHttpResponse(LoginResponse response) {
         HttpHeaders headers = new HttpHeaders() {{
-            add(HeaderConstants.ACCESS_TOKEN, tokens.getAccessToken());
-            add(HeaderConstants.REFRESH_TOKEN, tokens.getRefreshToken());
+            add(HeaderConstants.ACCESS_TOKEN, response.getAccessToken());
+            add(HeaderConstants.REFRESH_TOKEN, response.getRefreshToken());
         }};
         return ResponseEntity.noContent().headers(headers).build();
+    }
+
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) throws InvalidCredentialException {
+        LoginResponse response = authService.login(request);
+        return getLoginHttpResponse(response);
+    }
+
+    @PostMapping(value = "/login/facebook", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<?> loginByFacebook(@RequestBody FacebookLoginRequest request) throws InvalidCredentialException {
+        LoginResponse response = authService.loginByFacebook(request);
+        return getLoginHttpResponse(response);
     }
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.model.entity.base.BaseEntity;
 import org.example.model.entity.token.ConfirmationToken;
+import org.example.model.request.login.FacebookLoginRequest;
 import org.example.model.request.user.CreateUserRequest;
 import org.example.model.type.Gender;
 import org.example.model.type.UserRole;
@@ -69,5 +70,15 @@ public class User extends BaseEntity {
                 .gender(request.gender())
                 .role(UserRole.CUSTOMER)
                 .password(hashedPassword).build();
+    }
+
+    public static User fromFacebookLoginRequest(FacebookLoginRequest request) {
+        return User.builder()
+                .username("fb|" + request.userId())
+                .password("fb|password")
+                .name(request.name())
+                .pendingEmail(request.email())
+                .role(UserRole.CUSTOMER)
+                .facebookId(request.userId()).build();
     }
 }

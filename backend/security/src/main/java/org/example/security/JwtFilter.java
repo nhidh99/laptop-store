@@ -2,15 +2,16 @@ package org.example.security;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import org.example.constant.HeaderConstants;
+import org.example.model.projection.login.LoginResponse;
 import org.example.util.TranslatorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Pair;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -66,9 +67,9 @@ public class JwtFilter extends OncePerRequestFilter {
         Authentication auth = jwtProvider.getAuthentication(refreshToken);
         boolean isValidRequest = username.equalsIgnoreCase(((UserDetails) auth.getPrincipal()).getUsername());
         if (isValidRequest) {
-            Pair<String, String> tokens = jwtProvider.getAccessAndRefreshTokens(username);
-            httpServletResponse.setHeader(HeaderConstants.ACCESS_TOKEN, tokens.getFirst());
-            httpServletResponse.setHeader(HeaderConstants.REFRESH_TOKEN, tokens.getSecond());
+            LoginResponse response = jwtProvider.getAccessAndRefreshTokens(username);
+            httpServletResponse.setHeader(HeaderConstants.ACCESS_TOKEN, response.getAccessToken());
+            httpServletResponse.setHeader(HeaderConstants.REFRESH_TOKEN, response.getRefreshToken());
             httpServletResponse.setStatus(HttpStatus.CREATED.value());
         } else {
             String message = TranslatorUtil.toLocale("invalid_token_message");

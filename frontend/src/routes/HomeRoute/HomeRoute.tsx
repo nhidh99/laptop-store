@@ -6,7 +6,7 @@ import { Route, Switch } from 'react-router';
 export default function HomeRoute() {
     return (
         <Switch>
-            <Route path={PATH.HOME} component={() => <Home />} />
+            <Route path={PATH.HOME} component={Home} />
         </Switch>
     );
 }

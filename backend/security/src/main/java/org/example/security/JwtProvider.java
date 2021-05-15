@@ -2,6 +2,7 @@ package org.example.security;
 
 import io.jsonwebtoken.*;
 import org.example.constant.TokenConstants;
+import org.example.model.projection.login.LoginResponse;
 import org.example.model.projection.user.UserRoleValue;
 import org.example.model.type.UserRole;
 import org.example.repository.UserRepository;
@@ -71,10 +72,10 @@ public class JwtProvider {
                 .compact();
     }
 
-    public Pair<String, String> getAccessAndRefreshTokens(String username) {
+    public LoginResponse getAccessAndRefreshTokens(String username) {
         String accessToken = getAccessToken(username);
         String refreshToken = getRefreshToken(username);
-        return Pair.of(accessToken, refreshToken);
+        return new LoginResponse(accessToken, refreshToken);
     }
 
     public Authentication getAuthentication(String token) {

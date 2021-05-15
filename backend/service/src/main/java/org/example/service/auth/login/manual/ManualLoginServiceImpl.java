@@ -7,17 +7,16 @@ import org.example.model.projection.login.LoginResponse;
 import org.example.security.JwtProvider;
 import org.example.validator.auth.AuthValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class LoginServiceImpl implements LoginService {
+public class ManualLoginServiceImpl implements ManualLoginService {
     private final AuthValidator authValidator;
     private final JwtProvider jwtProvider;
 
     @Autowired
-    public LoginServiceImpl(AuthValidator authValidator, JwtProvider jwtProvider) {
+    public ManualLoginServiceImpl(AuthValidator authValidator, JwtProvider jwtProvider) {
         this.authValidator = authValidator;
         this.jwtProvider = jwtProvider;
     }

@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import org.example.annotation.EnumPattern;
 import org.example.constant.RegexConstants;
 import org.example.deserializer.NormalizeSpaceDeserializer;
+import org.example.model.request.login.FacebookLoginRequest;
 import org.example.model.type.Gender;
 
 import javax.validation.constraints.Pattern;
@@ -39,17 +40,17 @@ public record CreateUserRequest(
     @Pattern(regexp = RegexConstants.REGISTRATION_NAME)
     String name,
 
-    @JsonProperty("phone")
-    @Size(min = 10, max = 10)
-    @Schema(description = "User phone number of registration", example = "0123456789")
-    @Pattern(regexp = RegexConstants.REGISTRATION_PHONE)
-    String phone,
-
     @JsonProperty("email")
     @Size(min = 4, max = 100)
     @Schema(description = "User email of registration", example = "test@example.com")
     @Pattern(regexp = RegexConstants.REGISTRATION_EMAIL)
     String email,
+
+    @JsonProperty("phone")
+    @Size(min = 10, max = 10)
+    @Schema(description = "User phone number of registration", example = "0123456789")
+    @Pattern(regexp = RegexConstants.REGISTRATION_PHONE)
+    String phone,
 
     @JsonProperty("gender")
     @EnumPattern(regexp = RegexConstants.REGISTRATION_GENDER)
