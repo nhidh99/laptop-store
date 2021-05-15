@@ -27,4 +27,6 @@ hs_err_pid*
 /.idea/
 
 #application.yml
-*.yml
+*.yml	
+
+node_modules/
