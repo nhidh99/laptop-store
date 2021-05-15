@@ -1,4 +1,4 @@
-package org.example.service.auth.login;
+package org.example.service.auth.login.manual;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.exception.InvalidCredentialException;
@@ -36,7 +36,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public LoginResponse process(LoginRequest loginRequest) {
-        Pair<String, String> tokenPair = jwtProvider.getAccessAndRefreshTokens(loginRequest.username());
-        return LoginResponse.fromTokenPair(tokenPair);
+        String username = loginRequest.username();
+        return jwtProvider.getAccessAndRefreshTokens(username);
     }
 }

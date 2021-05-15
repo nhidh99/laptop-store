@@ -1,5 +1,7 @@
-package org.example.security;
+package org.example.config;
 
+import org.example.security.JwtFilterConfig;
+import org.example.security.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

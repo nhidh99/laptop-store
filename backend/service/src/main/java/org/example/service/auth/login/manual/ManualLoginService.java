@@ -1,4 +1,4 @@
-package org.example.service.auth.login;
+package org.example.service.auth.login.manual;
 
 import org.example.exception.InvalidCredentialException;
 import org.example.model.request.login.LoginRequest;
