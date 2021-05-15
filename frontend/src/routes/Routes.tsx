@@ -5,10 +5,10 @@ import HomeRoute from './HomeRoute';
 
 export default function Routes() {
     return (
-        <MainLayout>
-            <BrowserRouter>
+        <BrowserRouter>
+            <MainLayout>
                 <HomeRoute />
-            </BrowserRouter>
-        </MainLayout>
+            </MainLayout>
+        </BrowserRouter>
     );
 }
