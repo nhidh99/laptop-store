@@ -77,7 +77,7 @@ public class User extends BaseEntity {
                 .username("fb|" + request.userId())
                 .password("fb|password")
                 .name(request.name())
-                .pendingEmail(request.email())
+                .verifiedEmail(request.email())
                 .role(UserRole.CUSTOMER)
                 .facebookId(request.userId()).build();
     }
