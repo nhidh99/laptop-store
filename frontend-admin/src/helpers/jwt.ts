@@ -1,50 +1,25 @@
-import axios from 'axios';
 import cookie from './cookie';
 
 const jwt = () => {
-    let inMemoryJwt = null;
-    const refreshEndpoint = '/auth/refresh-token';
-    const logoutEventName = 'ra-logout';
-
     window.addEventListener('storage', (event) => {
-        if (event.key === logoutEventName) {
-            inMemoryJwt = null;
+        if (event.key === 'ra-logout') {
+            cookie.remove('access-token');
         }
     });
 
-    async function refreshToken() {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                'x-refresh-token': cookie.get('refresh-token')
-            }
-        };
-        try {
-            const response = await axios.post(refreshEndpoint, null, config);
-            const accessToken = response.headers['x-access-token'];
-            const refreshToken = response.headers['x-refresh-token'];
-            setToken(accessToken);
-            cookie.set('refresh-token', refreshToken);
-            return true;
-        } catch (err) {
-            return false;
-        }
-    }
-
     function getToken() {
-        return inMemoryJwt;
+        return cookie.get('access-token');
     }
 
     function setToken(jwt: string) {
-        inMemoryJwt = jwt;
+        cookie.set('access-token', jwt);
     }
 
     function removeToken() {
-        inMemoryJwt = null;
+        cookie.remove('access-token');
     }
 
     return {
-        refreshToken,
         getToken,
         setToken,
         removeToken

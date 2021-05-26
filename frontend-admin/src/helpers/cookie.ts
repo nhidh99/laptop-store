@@ -1,5 +1,5 @@
 const cookie = {
-    set: function (name: string, value: number, days?: number) {
+    set: function (name: string, value: string, days?: number) {
         let expires = '';
         if (days) {
             var date = new Date();
@@ -19,7 +19,7 @@ const cookie = {
                 c = c.substring(1);
             }
             if (c.indexOf(cname) === 0) {
-                return c.substring(name.length, c.length);
+                return c.substring(name.length + 1, c.length);
             }
         }
         return null;

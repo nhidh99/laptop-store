@@ -1,28 +1,36 @@
+import auth from '@/helpers/auth';
+import cookie from '@/helpers/cookie';
+import jwt from '@/helpers/jwt';
+
 const authProvider = {
-    // called when the user attempts to log in
-    login: ({ username }) => {
-        localStorage.setItem('username', username);
-        // accept all username/password combinations
-        return Promise.resolve();
+    login: async ({ username, password }) => {
+        try {
+            await auth.login(username, password);
+            return Promise.resolve();
+        } catch (err) {
+            return Promise.reject();
+        }
     },
-    // called when the user clicks on the logout button
+
     logout: () => {
-        localStorage.removeItem('username');
+        jwt.removeToken();
+        cookie.remove('refresh-token');
         return Promise.resolve();
     },
-    // called when the API returns an error
+
     checkError: ({ status }) => {
-        if (status === 401 || status === 403) {
-            localStorage.removeItem('username');
+        if (status === 401) {
+            jwt.removeToken();
+            cookie.remove('refresh-token');
             return Promise.reject();
         }
         return Promise.resolve();
     },
-    // called when the user navigates to a new location, to check for authentication
+
     checkAuth: () => {
-        return localStorage.getItem('username') ? Promise.resolve() : Promise.reject();
+        return jwt.getToken() ? Promise.resolve() : Promise.reject();
     },
-    // called when the user navigates to a new location, to check for permissions / roles
+
     getPermissions: () => Promise.resolve()
 };
 
