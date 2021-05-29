@@ -19,18 +19,20 @@ repositories {
     mavenCentral()
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.example.LaptopStoreApplication'
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
 dependencies {
     implementation project(':controller')
     implementation project(':config')
     implementation "org.springdoc:springdoc-openapi-ui:${openApiVersion}"
-}
-
-bootJar {
-    enabled = true
-}
-
-jar {
-    enabled = false
 }
 
 subprojects {
@@ -58,6 +60,14 @@ subprojects {
 
     dependencyManagement {
         imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
+    }
+
+    bootJar {
+        enabled = false
+    }
+
+    jar {
+        enabled = true
     }
 }
 
